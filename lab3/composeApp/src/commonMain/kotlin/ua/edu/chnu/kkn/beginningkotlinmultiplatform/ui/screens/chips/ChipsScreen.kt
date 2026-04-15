@@ -50,9 +50,8 @@ private fun ChipsContent(padding: PaddingValues) {
         if (inputVisible) {
             InputChip(
                 selected = true,
-                onClick = {},
-                label = { Text("Input Chip") },
-                onDismiss = { inputVisible = false }
+                onClick = { inputVisible = false },
+                label = { Text("Input Chip (tap to remove)") }
             )
         }
         SuggestionChip(
