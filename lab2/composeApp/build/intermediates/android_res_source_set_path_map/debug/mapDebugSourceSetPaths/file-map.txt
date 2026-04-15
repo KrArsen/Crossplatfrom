@@ -1,0 +1,9 @@
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-pngs-0 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\build\generated\res\pngs\debug
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-updated_navigation_xml-1 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\build\generated\updated_navigation_xml\debug
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-packageDebugResources-2 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-packageDebugResources-3 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-debug-4 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\build\intermediates\merged_res\debug\mergeDebugResources
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-androidDebug-5 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\src\androidDebug\res
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-androidMain-6 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\src\androidMain\res
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-debug-7 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\src\debug\res
+ua.edu.chnu.kkn.beginningkotlinmultiplatform.composeApp-main-8 D:\UNIVERCITY\AndroidStudioProjects\lab2\composeApp\src\main\res

@@ -6,6 +6,10 @@ plugins {
 }
 
 kotlin {
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
+    }
+
     androidTarget()
 
     jvm("desktop")
@@ -39,8 +43,10 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
+        named("desktopMain") {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+            }
         }
     }
 }

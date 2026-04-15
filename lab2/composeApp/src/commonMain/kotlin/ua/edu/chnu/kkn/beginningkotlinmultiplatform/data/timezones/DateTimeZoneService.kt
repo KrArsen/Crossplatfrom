@@ -1,8 +1,8 @@
 package ua.edu.chnu.kkn.beginningkotlinmultiplatform.data.timezones
 
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
+import kotlin.time.Instant
 
 interface DateTimeZoneService {
     fun nowInstant(): Instant
