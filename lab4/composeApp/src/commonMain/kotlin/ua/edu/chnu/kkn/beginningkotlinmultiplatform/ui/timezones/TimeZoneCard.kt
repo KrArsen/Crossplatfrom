@@ -24,6 +24,7 @@ import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.offsetAt
 
 @Composable
 fun TimeZoneCard(zoneId: String, onRemove: (() -> Unit)? = null) {
