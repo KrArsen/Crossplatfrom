@@ -22,16 +22,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen {
-                TopAppBar(
-                    title = {
-                        when (it) {
-                            0 -> Text(text = stringResource(Res.string.world_clocks))
-                            else -> Text(text = stringResource(Res.string.find_meeting))
+            MainScreen(
+                actionBarFun = {
+                    TopAppBar(
+                        title = {
+                            when (it) {
+                                0 -> Text(text = stringResource(Res.string.world_clocks))
+                                else -> Text(text = stringResource(Res.string.find_meeting))
+                            }
                         }
-                    }
-                )
-            }
+                    )
+                }
+            )
         }
     }
 }
@@ -40,14 +42,16 @@ class MainActivity : ComponentActivity() {
 @PreviewLightDark
 @Composable
 fun AppAndroidPreview() {
-    MainScreen {
-        TopAppBar(
-            title = {
-                when (it) {
-                    0 -> Text(text = stringResource(Res.string.world_clocks))
-                    else -> Text(text = stringResource(Res.string.find_meeting))
+    MainScreen(
+        actionBarFun = {
+            TopAppBar(
+                title = {
+                    when (it) {
+                        0 -> Text(text = stringResource(Res.string.world_clocks))
+                        else -> Text(text = stringResource(Res.string.find_meeting))
+                    }
                 }
-            }
-        )
-    }
+            )
+        }
+    )
 }
