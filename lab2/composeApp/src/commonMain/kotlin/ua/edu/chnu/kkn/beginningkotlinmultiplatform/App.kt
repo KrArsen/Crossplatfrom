@@ -8,28 +8,27 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.aakira.napier.Napier
-import ua.edu.chnu.kkn.beginningkotlinmultiplatform.data.timezones.DateTimeZoneService
-import ua.edu.chnu.kkn.beginningkotlinmultiplatform.data.timezones.KotlinxDateTimeZoneService
+import ua.edu.chnu.kkn.beginningkotlinmultiplatform.data.timezones.DateTimeProvider
+import ua.edu.chnu.kkn.beginningkotlinmultiplatform.data.timezones.DateTimeProviderImpl
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.platform.initLogger
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.platform.platformName
 
 @Composable
 fun App(
-    dateTimeZoneService: DateTimeZoneService = KotlinxDateTimeZoneService()
+    dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
 ) {
-    val nowInstant = dateTimeZoneService.nowInstant()
-    val currentZoneId = dateTimeZoneService.currentSystemTimeZoneId()
-    val localDateTime = dateTimeZoneService.format(nowInstant, currentZoneId)
-    val knownZoneCount = dateTimeZoneService.availableTimeZoneIds().size
+    val currentDateTime = remember { dateTimeProvider.getCurrentLocalDateTime() }
+    val currentTimeZone = remember { dateTimeProvider.getCurrentTimeZone() }
 
     LaunchedEffect(Unit) {
         initLogger()
         Napier.i(
-            message = "Platform=${platformName()}, zone=$currentZoneId, instant=$nowInstant, knownZones=$knownZoneCount",
+            message = "App started. Current platform: ${platformName()}. Current Date/Time: $currentDateTime, TimeZone: $currentTimeZone",
             tag = "App"
         )
     }
@@ -42,9 +41,8 @@ fun App(
         ) {
             Text(text = "Laboratory work #2")
             Text(text = "Platform: ${platformName()}")
-            Text(text = "Current zone: $currentZoneId")
-            Text(text = "Local date/time: $localDateTime")
-            Text(text = "Available time zones: $knownZoneCount")
+            Text(text = "Current zone: $currentTimeZone")
+            Text(text = "Local date/time: $currentDateTime")
         }
     }
 }
