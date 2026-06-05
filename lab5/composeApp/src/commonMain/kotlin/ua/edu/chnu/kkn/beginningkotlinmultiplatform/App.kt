@@ -26,7 +26,10 @@ fun App(
             
             activeWebDialogs.toList().forEach { dialogData ->
                 Dialog(
-                    onDismissRequest = { activeWebDialogs.remove(dialogData) }
+                    onDismissRequest = {
+                        dialogData.onDismiss()
+                        activeWebDialogs.remove(dialogData)
+                    }
                 ) {
                     dialogData.content()
                 }

@@ -11,21 +11,39 @@ import androidx.compose.ui.input.key.KeyShortcut
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.unit.dp
 
 fun main() = application {
     val windows = remember { mutableStateListOf("Головне вікно") }
 
-    windows.forEachIndexed { index, windowTitle ->
+    // Render active dialog windows as separate OS windows
+    activeDesktopDialogs.toList().forEach { dialogData ->
         Window(
             onCloseRequest = {
-                windows.removeAt(index)
+                dialogData.onDismiss()
+                activeDesktopDialogs.remove(dialogData)
             },
-            title = windowTitle
+            title = dialogData.title,
+            state = rememberWindowState(width = 400.dp, height = 500.dp)
+        ) {
+            Surface(modifier = Modifier.fillMaxSize()) {
+                dialogData.content()
+            }
+        }
+    }
+
+    windows.toList().forEach { windowTitle ->
+        Window(
+            onCloseRequest = {
+                windows.remove(windowTitle)
+            },
+            title = windowTitle,
+            state = rememberWindowState(width = 800.dp, height = 600.dp)
         ) {
             MenuBar {
-                Menu("Файл", mnemonic = 'Ф') {
+                Menu("Файл") {
                     Item(
                         "Нове вікно",
                         shortcut = KeyShortcut(Key.N, ctrl = true),
@@ -35,6 +53,13 @@ fun main() = application {
                     )
                     Separator()
                     Item(
+                        "Закрити",
+                        shortcut = KeyShortcut(Key.W, ctrl = true),
+                        onClick = {
+                            windows.remove(windowTitle)
+                        }
+                    )
+                    Item(
                         "Вийти",
                         shortcut = KeyShortcut(Key.Q, ctrl = true),
                         onClick = {
@@ -42,12 +67,12 @@ fun main() = application {
                         }
                     )
                 }
-                Menu("Дія", mnemonic = 'Д') {
+                Menu("Дії") {
                     Item(
                         "Відкрити діалог",
                         shortcut = KeyShortcut(Key.D, ctrl = true),
                         onClick = {
-                            openDialog("Діалог з меню") {
+                            showDialog("Діалог з меню", onDismiss = {}) {
                                 Surface(modifier = Modifier.padding(16.dp)) {
                                     Text("Привіт з діалогу (викликано через MenuBar)!")
                                 }
@@ -62,7 +87,7 @@ fun main() = application {
                         windows.add("Вікно ${windows.size + 1}")
                     },
                     onOpenDialogClick = {
-                        openDialog("Діалог з екрану") {
+                        showDialog("Діалог з екрану", onDismiss = {}) {
                             Surface(modifier = Modifier.padding(16.dp)) {
                                 Text("Привіт з діалогу (викликано з екрану)!")
                             }

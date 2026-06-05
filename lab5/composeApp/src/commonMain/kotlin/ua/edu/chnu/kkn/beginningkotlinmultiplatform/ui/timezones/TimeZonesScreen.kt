@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.update
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.dialogs.SelectTimeZoneDialog
-import ua.edu.chnu.kkn.beginningkotlinmultiplatform.openDialog
+import ua.edu.chnu.kkn.beginningkotlinmultiplatform.showDialog
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.LocalDialogController
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.viewmodel.TimeZoneViewModel
 
@@ -48,17 +48,21 @@ fun TimeZonesScreen(
                 .align(Alignment.BottomEnd)
                 .padding(16.dp),
             onClick = {
-                openDialog("Select Timezones") {
-                    val controller = LocalDialogController.current
-                    SelectTimeZoneDialog(
-                        selectedIds = selectedZones,
-                        onConfirm = { updatedSelection ->
-                            viewModel.selectedTimeZones.update { updatedSelection.distinct() }
-                            controller.close()
-                        },
-                        onDismiss = { controller.close() }
-                    )
-                }
+                showDialog(
+                    title = "Select Timezones",
+                    onDismiss = {},
+                    content = {
+                        val controller = LocalDialogController.current
+                        SelectTimeZoneDialog(
+                            selectedIds = selectedZones,
+                            onConfirm = { updatedSelection ->
+                                viewModel.selectedTimeZones.update { updatedSelection.distinct() }
+                                controller.close()
+                            },
+                            onDismiss = { controller.close() }
+                        )
+                    }
+                )
             }
         ) {
             Icon(Icons.Default.Add, contentDescription = "Add timezone")

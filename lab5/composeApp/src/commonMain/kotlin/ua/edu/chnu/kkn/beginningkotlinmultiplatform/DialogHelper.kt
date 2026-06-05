@@ -4,8 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.mutableStateListOf
 
-expect fun openDialog(
+expect fun showDialog(
     title: String,
+    onDismiss: () -> Unit,
     content: @Composable () -> Unit
 )
 
@@ -17,6 +18,10 @@ val LocalDialogController = staticCompositionLocalOf<DialogController> {
     error("No DialogController provided")
 }
 
-data class WebDialogData(val title: String, val content: @Composable () -> Unit)
+data class DialogData(
+    val title: String,
+    val onDismiss: () -> Unit,
+    val content: @Composable () -> Unit
+)
 
-val activeWebDialogs = mutableStateListOf<WebDialogData>()
+val activeWebDialogs = mutableStateListOf<DialogData>()

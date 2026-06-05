@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.dialogs.MeetingResultDialog
-import ua.edu.chnu.kkn.beginningkotlinmultiplatform.openDialog
+import ua.edu.chnu.kkn.beginningkotlinmultiplatform.showDialog
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.LocalDialogController
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.viewmodel.TimeZoneViewModel
 
@@ -53,14 +53,18 @@ fun MeetingScreen(
         Button(
             onClick = {
                 val slots = viewModel.findMeetingTime(startHour = startHour, endHour = endHour)
-                openDialog("Suitable meeting times") {
-                    val controller = LocalDialogController.current
-                    MeetingResultDialog(
-                        slots = slots,
-                        selectedZones = selectedZones,
-                        onDismiss = { controller.close() }
-                    )
-                }
+                showDialog(
+                    title = "Suitable meeting times",
+                    onDismiss = {},
+                    content = {
+                        val controller = LocalDialogController.current
+                        MeetingResultDialog(
+                            slots = slots,
+                            selectedZones = selectedZones,
+                            onDismiss = { controller.close() }
+                        )
+                    }
+                )
             }
         ) {
             Text("Find suitable time")
