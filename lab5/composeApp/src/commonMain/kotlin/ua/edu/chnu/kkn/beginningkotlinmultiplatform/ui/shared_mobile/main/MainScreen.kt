@@ -1,13 +1,11 @@
 package ua.edu.chnu.kkn.beginningkotlinmultiplatform.ui.shared_mobile.main
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Place
-import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
@@ -29,10 +27,7 @@ import ua.edu.chnu.kkn.beginningkotlinmultiplatform.ui.theme.AppTheme
 import ua.edu.chnu.kkn.beginningkotlinmultiplatform.ui.types.EmptyComposable
 
 @Composable
-fun MainScreen(
-    actionBarFun: @Composable (Int) -> Unit = { EmptyComposable() },
-    onNewWindow: (() -> Unit)? = null
-) {
+fun MainScreen(actionBarFun: @Composable (Int) -> Unit = { EmptyComposable() }) {
     val showAddDialog = remember { mutableStateOf(false) }
     val currentTimezoneStrings = remember { SnapshotStateList<String>() }
     val selectedIndex = remember { mutableIntStateOf(0)}
@@ -98,17 +93,9 @@ fun MainScreen(
                     )
                 }
 
-                Column {
-                    onNewWindow?.let {
-                        Button(onClick = it, modifier = Modifier.padding(top = 8.dp)) {
-                            Text("Open New Window")
-                        }
-                    }
-
-                    when (selectedIndex.intValue) {
-                        0 -> TimeZonesPage(currentTimezoneStrings)
-                        1 -> FindMeetingPage(currentTimezoneStrings)
-                    }
+                when (selectedIndex.intValue) {
+                    0 -> TimeZonesPage(currentTimezoneStrings)
+                    1 -> FindMeetingPage(currentTimezoneStrings)
                 }
             }
         }

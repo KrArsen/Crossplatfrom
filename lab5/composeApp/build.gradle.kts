@@ -55,9 +55,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kermit)
-            implementation(libs.datetime)
             implementation(libs.navigation.compose)
             implementation(libs.material.icons.core)
+            implementation(compose.materialIconsExtended)
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -117,3 +119,8 @@ compose.desktop {
         }
     }
 }
+
+tasks.register("runDesktop") {
+    dependsOn("jvmRun")
+}
+

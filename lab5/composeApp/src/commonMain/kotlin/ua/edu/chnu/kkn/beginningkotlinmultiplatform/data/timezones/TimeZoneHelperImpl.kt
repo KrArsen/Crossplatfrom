@@ -8,8 +8,9 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.time.Clock
-import kotlin.time.Instant
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import ua.edu.chnu.kkn.beginningkotlinmultiplatform.getCurrentTimeZone
 
 class TimeZoneHelperImpl : TimeZoneHelper {
 
@@ -20,45 +21,33 @@ class TimeZoneHelperImpl : TimeZoneHelper {
     override fun currentTime(): String {
         val currentMoment: Instant = Clock.System.now()
         val dateTime: LocalDateTime = currentMoment
-            .toLocalDateTime(TimeZone.currentSystemDefault())
+            .toLocalDateTime(getCurrentTimeZone())
         return formatDateTime(dateTime)
     }
 
     override fun currentTimeZone(): String {
-        val currentTimeZone = TimeZone.currentSystemDefault()
+        val currentTimeZone = getCurrentTimeZone()
         return currentTimeZone.toString()
     }
 
     override fun hoursFromTimeZone(otherTimeZoneId: String): Double {
-        val currentTimeZone = TimeZone.currentSystemDefault()
+        val currentTimeZone = getCurrentTimeZone()
         val currentUTCInstant: Instant = Clock.System.now()
-        val otherTimeZone = try {
-            TimeZone.of(otherTimeZoneId)
-        } catch (e: Exception) {
-            TimeZone.UTC
-        }
+        val otherTimeZone = TimeZone.of(otherTimeZoneId)
         val currentDateTime: LocalDateTime = currentUTCInstant.toLocalDateTime(currentTimeZone)
         val currentOtherDateTime: LocalDateTime = currentUTCInstant.toLocalDateTime(otherTimeZone)
         return abs((currentDateTime.hour - currentOtherDateTime.hour) * 1.0)
     }
 
     override fun getTime(timezoneId: String): String {
-        val timezone = try {
-            TimeZone.of(timezoneId)
-        } catch (e: Exception) {
-            TimeZone.UTC
-        }
+        val timezone = TimeZone.of(timezoneId)
         val currentMoment: Instant = Clock.System.now()
         val dateTime: LocalDateTime = currentMoment.toLocalDateTime(timezone)
         return formatDateTime(dateTime)
     }
 
     override fun getDate(timezoneId: String): String {
-        val timezone = try {
-            TimeZone.of(timezoneId)
-        } catch (e: Exception) {
-            TimeZone.UTC
-        }
+        val timezone = TimeZone.of(timezoneId)
         val currentMoment: Instant = Clock.System.now()
         val dateTime: LocalDateTime = currentMoment.toLocalDateTime(timezone)
         return "${dateTime.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }}, " +
@@ -72,15 +61,11 @@ class TimeZoneHelperImpl : TimeZoneHelper {
     ): List<Int> {
         val goodHours = mutableListOf<Int>()
         val timeRange = IntRange(max(0, startHour), min(23, endHour))
-        val currentTimeZone = TimeZone.currentSystemDefault()
+        val currentTimeZone = getCurrentTimeZone()
         for (hour in timeRange) {
             var isGoodHour = false
             for (zone in timezoneStrings) {
-                val timezone = try {
-                    TimeZone.of(zone)
-                } catch (e: Exception) {
-                    TimeZone.UTC
-                }
+                val timezone = TimeZone.of(zone)
                 if (timezone == currentTimeZone) {
                     continue
                 }
