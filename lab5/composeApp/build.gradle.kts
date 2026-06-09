@@ -58,7 +58,7 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.material.icons.core)
             implementation(compose.materialIconsExtended)
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+            implementation(libs.datetime)
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
         }
         commonTest.dependencies {
@@ -123,4 +123,11 @@ compose.desktop {
 tasks.register("runDesktop") {
     dependsOn("jvmRun")
 }
+
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+    }
+}
+
 

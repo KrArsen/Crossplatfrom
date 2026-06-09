@@ -16,7 +16,7 @@ kotlin = "2.3.10"
 kotlinx-coroutines = "1.10.2"
 compose-material3-expressive = "1.9.0"
 kermit = "2.1.0"
-kotlinxDateTime = "0.7.1"
+kotlinxDateTime = "0.6.0"
 navigation-compose = "2.9.2"
 material-icons-core = "1.7.3"
 
